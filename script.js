@@ -84,7 +84,7 @@ ${product.price} دج
 </div>
 
 
-<button onclick="addToCart(${product.id})">
+<button onclick="location.href='product.html?id=${product.id}'">
 
 🛒 أضف للسلة
 
