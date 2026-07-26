@@ -23,8 +23,11 @@ header{
 
 
 .logo{
-    font-size:25px;
-    font-weight:bold;
+
+font-size:28px;
+font-weight:900;
+letter-spacing:1px;
+
 }
 
 
@@ -140,17 +143,34 @@ h2{
 
 button{
 
-    background:#111;
+    background:linear-gradient(135deg,#111,#444);
 
     color:white;
 
     border:0;
 
-    padding:12px 25px;
+    padding:14px 30px;
 
-    border-radius:25px;
+    border-radius:30px;
 
     cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px #0003;
+
+}
+
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px #0004;
 
 }
 
@@ -203,9 +223,13 @@ button{
 
 .order{
 
-    background:#25d366;
+    background:linear-gradient(135deg,#25d366,#128c7e);
 
     width:100%;
+
+    font-size:18px;
+
+    padding:15px;
 
 }
 
