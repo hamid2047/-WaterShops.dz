@@ -252,3 +252,33 @@ footer{
     padding:20px;
 
 }
+.checkout-box{
+
+max-width:500px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px #0002;
+
+}
+
+
+.checkout-box input{
+
+width:100%;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #ddd;
+
+}
+
+
+.checkout-box button{
+
+width:100%;
+background:#25d366;
+font-size:18px;
+
+}
