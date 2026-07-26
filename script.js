@@ -170,7 +170,7 @@ saveCart();
 
 updateCart();
 
-alert("تمت إضافة المنتج إلى السلة ✅");
+showToast("✅ تمت إضافة المنتج إلى السلة");
 
 }
 
@@ -280,7 +280,7 @@ saveCart();
 
 updateCart();
 
-alert("تم تغيير الكمية  ✅");
+showToast("تم تغيير الكمية  ✅");
 
 }
 
@@ -298,7 +298,7 @@ saveCart();
 
 updateCart();
 
-alert("تم حذف المنتج من السلة ✅");
+showToast("🗑️ تم حذف المنتج من السلة");
 
 }
 
@@ -385,7 +385,7 @@ function sendWhatsApp(){
 
 if(cart.length===0){
 
-alert("السلة فارغة");
+showToast("⚠️ السلة فارغة");
 
 return;
 
@@ -474,7 +474,7 @@ function goCheckout(){
 
     if(cart.length === 0){
 
-        alert("السلة فارغة");
+showToast("⚠️ السلة فارغة");
 
         return;
 
@@ -488,5 +488,22 @@ function openProduct(id){
 
 window.location.href =
 "product.html?id=" + id;
+
+}
+
+function showToast(message){
+
+let toast =
+document.getElementById("toast");
+
+toast.innerHTML = message;
+
+toast.classList.add("show");
+
+setTimeout(function(){
+
+toast.classList.remove("show");
+
+},2500);
 
 }
