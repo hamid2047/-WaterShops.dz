@@ -70,6 +70,17 @@ placeholder="العنوان">
 
 
 function orderNow(){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+if(cart.length === 0){
+
+alert("السلة فارغة، أضف منتجات أولاً");
+
+window.location.href="index.html";
+
+return;
+
+}
 
 
 let name =
