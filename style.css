@@ -363,5 +363,41 @@ height:180px;
 
 }
 
+/* صفحة تفاصيل المنتج */
+
+#details-box .product{
+
+max-width:500px;
+
+margin:auto;
+
+}
+
+
+#details-box h1{
+
+font-size:32px;
+
+margin:20px 0;
+
+}
+
+
+#details-box p{
+
+font-size:18px;
+
+line-height:1.8;
+
+}
+
+
+#details-box button{
+
+margin-top:20px;
+
+background:linear-gradient(135deg,#25d366,#128c7e);
+
+width:100%;
 
 }
