@@ -151,7 +151,10 @@ cart.forEach(item=>{
 
 message +=
 "- "+item.name+
-" × "+item.quantity+"\n";
+" × "+item.quantity+
+" = "+
+(item.price * item.quantity)
++" دج\n";
 
 
 total += item.price * item.quantity;
@@ -209,12 +212,19 @@ window.open(
 
 );
 
+localStorage.removeItem("cart");
+
+alert("✅ تم إرسال طلبك بنجاح");
+
+setTimeout(()=>{
+window.location.href="index.html";
+},2000);
 
 }
 
-
 </script>
 
+<script src="script.js"></script>
 
 </body>
 </html>
