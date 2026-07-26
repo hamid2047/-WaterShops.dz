@@ -106,6 +106,7 @@ placeholder="التقييم من 1 إلى 5">
 📦 الطلبات الجديدة
 </h2>
 
+<div id="notification"></div>
 
 <div id="admin-orders">
 
@@ -121,6 +122,16 @@ placeholder="التقييم من 1 إلى 5">
 
 
 <script>
+
+let password = prompt("كلمة سر الإدارة");
+
+if(password !== "08092005"){
+
+alert("غير مسموح");
+
+window.location.href="index.html";
+
+}
 
 
 let products =
@@ -199,6 +210,7 @@ JSON.stringify(products)
 
 showProducts();
 
+clearForm();
 
 alert(isEdit ? "تم تحديث المنتج" : "تمت إضافة المنتج");
 
@@ -423,13 +435,3 @@ showOrders();
 
 }
 
-showProducts();
-showOrders();
-
-</script>
-
-
-
-</body>
-
-</html>
