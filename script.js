@@ -49,10 +49,12 @@ description:"قميص بجودة عالية"
 
 ];
 
+if(!localStorage.getItem("products")){
 localStorage.setItem(
 "products",
 JSON.stringify(products)
 );
+}
 
 
 
@@ -83,7 +85,7 @@ list.forEach(product=>{
 
 box.innerHTML += `
 
-<div class="product" onclick="openProduct(${product.id})">
+<div class="product">
 
 
 <img src="${product.image}">
@@ -98,14 +100,17 @@ box.innerHTML += `
 <div class="rating">
 
 ${"⭐".repeat(product.rating)}
+<span>(${product.rating}/5)</span>
 
 </div>
 
 
 <button onclick="location.href='product.html?id=${product.id}'">
-
 👁️ عرض التفاصيل
+</button>
 
+<button onclick="event.stopPropagation(); addToCart(${product.id})">
+🛒 أضف للسلة
 </button>
 
 
@@ -165,6 +170,7 @@ saveCart();
 
 updateCart();
 
+alert("تمت إضافة المنتج إلى السلة ✅");
 
 }
 
@@ -238,18 +244,21 @@ ${item.quantity}
 
 
 
-document.getElementById("total").innerHTML=total;
+let totalBox=document.getElementById("total");
 
-
-document.getElementById("cart-count").innerHTML =
-cart.reduce((sum,item)=>sum+item.quantity,0);
-
-
-
+if(totalBox){
+totalBox.innerHTML=total;
 }
 
 
+let count=document.getElementById("cart-count");
 
+if(count){
+count.innerHTML =
+cart.reduce((sum,item)=>sum+item.quantity,0);
+}
+
+}
 
 
 // تغيير الكمية
@@ -271,6 +280,8 @@ saveCart();
 
 updateCart();
 
+alert("تم تغيير الكمية  ✅");
+
 }
 
 
@@ -286,6 +297,8 @@ cart.splice(index,1);
 saveCart();
 
 updateCart();
+
+alert("تم حذف المنتج من السلة ✅");
 
 }
 
@@ -312,16 +325,22 @@ JSON.stringify(cart)
 
 function openCart(){
 
-document.getElementById("cart")
-.classList.add("active");
+let cartBox = document.getElementById("cart");
+
+if(cartBox){
+cartBox.classList.add("active");
+}
 
 }
 
 
 function closeCart(){
 
-document.getElementById("cart")
-.classList.remove("active");
+let cartBox = document.getElementById("cart");
+
+if(cartBox){
+cartBox.classList.remove("active");
+}
 
 }
 
@@ -384,7 +403,7 @@ document.getElementById("customer-address").value;
 
 
 let message =
-"🛒 طلب جديد من المتجر\n\n";
+"💧 Water Shop\n🛒 طلب جديد\n\n";
 
 
 message +=
