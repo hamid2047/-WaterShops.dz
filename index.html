@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,61 +7,249 @@
 
 <style>
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-direction:rtl;
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
 }
 
 header{
-background:#0d47a1;
-color:white;
-padding:20px;
-text-align:center;
+    text-align:center;
+    padding:40px 20px;
+    background:white;
 }
 
-.hero{
-padding:60px 20px;
-text-align:center;
+header h1{
+    font-size:42px;
+}
+
+header span{
+    color:#c9ab4d;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.card h3{
+    margin:10px 0;
+}
+
+.price{
+    color:#444;
+    font-size:20px;
+    margin-bottom:10px;
 }
 
 button{
-background:#d4af37;
-color:white;
-padding:15px 30px;
-border:none;
-border-radius:8px;
-font-size:18px;
-cursor:pointer;
+    background:#c9ab4d;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.cart{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:15px;
+}
+
+.cart h2{
+    text-align:center;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    margin:10px 0;
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+}
+
+.total{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.whatsapp{
+    width:100%;
+    margin-top:15px;
+    background:#25D366;
+}
+
+.delete-btn{
+    background:red;
+    padding:5px 10px;
+    font-size:13px;
 }
 </style>
-
 </head>
-
 <body>
 
 <header>
-<h1>💧 Water Shops</h1>
-<p>عطور • مستحضرات التجميل • الإكسسوارات</p>
+    <h1>مرحباً بكم في <span>Water Shops</span></h1>
+    <p>أفضل متجر للعطور ومستحضرات التجميل والإكسسوارات</p>
 </header>
 
-<section class="hero">
-<h2>مرحبًا بكم في Water Shops</h2>
-<p>أفضل متجر للعطور ومستحضرات التجميل والإكسسوارات.</p>
+<section class="products">
 
-<a href="https://wa.me/213778196483">
-<button>اطلب عبر واتساب</button>
-</a>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600" alt="">
+<h3>عطر شانيل</h3>
+<p class="price">1200 دج</p>
+<button onclick="addToCart('عطر شانيل',1200)">
+أضف إلى السلة
+</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600" alt="">
+<h3>عطر ديور</h3>
+<p class="price">1800 دج</p>
+<button onclick="addToCart('عطر ديور',1800)">
+أضف إلى السلة
+</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600" alt="">
+<h3>عطر سوفاج</h3>
+<p class="price">2200 دج</p>
+<button onclick="addToCart('عطر سوفاج',2200)">
+أضف إلى السلة
+</button>
+</div>
+
 </section>
 
-<section style="padding:20px;text-align:center;">
-<h2>منتجاتنا</h2>
+<div class="cart">
+<h2>🛒 سلة الشراء</h2>
 
-<div style="background:white;padding:15px;margin:15px;border-radius:10px;">
-<img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500" width="200">
-<h3>عطر فاخر</h3>
-<p>السعر: 1200دج</p>
-<a href="https://wa.me/213778196483?text=أريد%20طلب%20العطر%20الفاخر">
-<button>اطلب الآن</button>
-</a>
+<div id="cartItems"></div>
+
+<div class="total">
+المجموع: <span id="total">0</span> دج
 </div>
+
+<button class="whatsapp" onclick="sendWhatsApp()">
+إرسال الطلب عبر واتساب
+</button>
+</div>
+
+<script>
+
+let cart=[];
+
+function addToCart(name,price){
+
+let item=cart.find(p=>p.name===name);
+
+if(item){
+item.qty++;
+}else{
+cart.push({
+name:name,
+price:price,
+qty:1
+});
+}
+
+renderCart();
+}
+
+function removeItem(index){
+cart.splice(index,1);
+renderCart();
+}
+
+function renderCart(){
+
+const cartItems=document.getElementById("cartItems");
+const totalElement=document.getElementById("total");
+
+cartItems.innerHTML="";
+
+let total=0;
+
+cart.forEach((item,index)=>{
+
+total+=item.price*item.qty;
+
+cartItems.innerHTML+=`
+<div class="cart-item">
+<div>
+${item.name} × ${item.qty}
+</div>
+
+<div>
+${item.price*item.qty} دج
+<button class="delete-btn"
+onclick="removeItem(${index})">
+حذف
+</button>
+</div>
+</div>
+`;
+
+});
+
+totalElement.innerText=total;
+}
+
+function sendWhatsApp(){
+
+if(cart.length===0){
+alert("السلة فارغة");
+return;
+}
+
+let message="السلام عليكم%0A%0A";
+message+="أريد طلب:%0A";
+
+let total=0;
+
+cart.forEach(item=>{
+message+=`- ${item.name} × ${item.qty}%0A`;
+total+=item.price*item.qty;
+});
+
+message+=`%0Aالمجموع: ${total} دج`;
+
+const phone="213XXXXXXXXX";
+
+window.open(
+`https://wa.me/${phone}?text=${message}`,
+'_blank'
+);
+}
+
+</script>
+
+</body>
+</html>
