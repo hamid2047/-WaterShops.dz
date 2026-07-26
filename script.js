@@ -66,7 +66,9 @@ JSON.stringify(products)
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 
-
+if(localStorage.getItem("theme") === "dark"){
+document.body.classList.add("dark");
+}
 
 // عرض المنتجات
 
@@ -507,3 +509,18 @@ toast.classList.remove("show");
 },2500);
 
 }
+
+function toggleMode(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("dark")
+? "dark"
+: "light"
+);
+
+}
+
+updateCart();
