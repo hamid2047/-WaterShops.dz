@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>لوحة التحكم</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+⚙️ لوحة التحكم
+</div>
+
+
+<a href="index.html" style="color:white;text-decoration:none;">
+العودة للمتجر
+</a>
+
+
+</header>
+
+
+
+
+
+<section>
+
+
+<h2>
+إضافة منتج جديد
+</h2>
+
+
+
+<div class="admin-box">
+
+
+<input 
+id="name"
+placeholder="اسم المنتج">
+
+
+<input 
+id="category"
+placeholder="القسم">
+
+
+<input 
+id="price"
+type="number"
+placeholder="السعر">
+
+
+<input 
+id="image"
+placeholder="رابط صورة المنتج">
+
+
+
+<button onclick="addProduct()">
+
+إضافة المنتج
+
+</button>
+
+
+
+</div>
+
+
+
+<h2>
+المنتجات الحالية
+</h2>
+
+
+
+<div id="admin-products">
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<script>
+
+
+let products =
+JSON.parse(localStorage.getItem("products"))
+|| [];
+
+
+
+
+// إضافة منتج
+
+function addProduct(){
+
+
+let product={
+
+id:Date.now(),
+
+name:
+document.getElementById("name").value,
+
+
+category:
+document.getElementById("category").value,
+
+
+price:
+Number(document.getElementById("price").value),
+
+
+image:
+document.getElementById("image").value
+
+
+};
+
+
+
+products.push(product);
+
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+
+
+showProducts();
+
+
+alert("تمت إضافة المنتج");
+
+
+}
+
+
+
+
+
+
+// عرض المنتجات
+
+function showProducts(){
+
+
+let box =
+document.getElementById("admin-products");
+
+
+box.innerHTML="";
+
+
+
+products.forEach((p,index)=>{
+
+
+box.innerHTML += `
+
+
+<div class="product">
+
+
+<img src="${p.image}">
+
+
+<h3>${p.name}</h3>
+
+<p>${p.price} دج</p>
+
+
+<button onclick="deleteProduct(${index})">
+
+حذف
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+// حذف منتج
+
+function deleteProduct(index){
+
+
+products.splice(index,1);
+
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+
+showProducts();
+
+
+}
+
+
+
+
+showProducts();
+
+
+</script>
+
+
+
+</body>
+
+</html>
