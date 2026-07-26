@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Premium Store</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- Header -->
+
+<header>
+
+<div class="logo">
+🛍️ Premium Store
+</div>
+
+
+<div class="search-box">
+
+<input 
+type="text"
+id="search"
+placeholder="ابحث عن منتج..."
+onkeyup="searchProducts()">
+
+<i class="fa fa-search"></i>
+
+</div>
+
+
+
+<nav>
+
+<a href="#products">المنتجات</a>
+
+<a href="#categories">الأقسام</a>
+
+<a href="#contact">تواصل</a>
+
+</nav>
+
+
+
+<button class="mode" onclick="toggleMode()">
+🌙
+</button>
+
+
+
+<div class="cart-button" onclick="openCart()">
+
+<i class="fa fa-cart-shopping"></i>
+
+<span id="cart-count">0</span>
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+
+<div>
+
+<h1>
+متجرك الإلكتروني العصري
+</h1>
+
+
+<p>
+منتجات مميزة - أسعار مناسبة - طلب سريع عبر واتساب
+</p>
+
+
+<a href="#products">
+ابدأ التسوق
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- Categories -->
+
+<section id="categories">
+
+
+<h2>
+الأقسام
+</h2>
+
+
+<div class="categories">
+
+
+<div>
+👕
+<h3>ملابس</h3>
+</div>
+
+
+<div>
+📱
+<h3>إلكترونيات</h3>
+</div>
+
+
+<div>
+🌹
+<h3>عطور</h3>
+</div>
+
+
+<div>
+⌚
+<h3>إكسسوارات</h3>
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- Products -->
+
+
+<section id="products">
+
+
+<h2>
+منتجاتنا
+</h2>
+
+
+
+<div class="products-container" id="products-list">
+
+
+<!-- المنتجات تأتي من JavaScript -->
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- Cart -->
+
+
+<div class="cart" id="cart">
+
+
+<div class="cart-top">
+
+<h2>
+🛒 السلة
+</h2>
+
+
+<button onclick="closeCart()">
+✕
+</button>
+
+
+</div>
+
+
+
+
+<div id="cart-items">
+
+</div>
+
+
+
+
+<div class="cart-total">
+
+المجموع:
+
+<strong>
+
+<span id="total">
+0
+</span>
+
+دج
+
+</strong>
+
+
+</div>
+
+
+
+
+<input 
+id="customer-name"
+placeholder="اسم الزبون">
+
+
+<input 
+id="customer-address"
+placeholder="العنوان">
+
+
+
+
+<button class="order"
+onclick="sendWhatsApp()">
+
+اطلب عبر واتساب
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Overlay -->
+
+<div id="overlay"
+onclick="closeCart()">
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Floating Whatsapp -->
+
+<a href="https://wa.me/213778196483"
+class="whatsapp"
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+
+
+
+
+
+<footer id="contact">
+
+<h3>
+Premium Store
+</h3>
+
+<p>
+جميع الحقوق محفوظة © 2026
+</p>
+
+</footer>
+
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
