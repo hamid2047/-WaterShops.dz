@@ -106,8 +106,24 @@ return;
 
 
 
+let orderNumber =
+Math.floor(1000000 + Math.random() * 9000000);
+
+
+let date =
+new Date().toLocaleString("ar-DZ");
+
+
 let message =
 "🛒 طلب جديد من Water Shop💧\n\n";
+
+
+message +=
+"🆔 رقم الطلب: #"+orderNumber+"\n";
+
+
+message +=
+"📅 التاريخ: "+date+"\n\n";
 
 
 message +=
