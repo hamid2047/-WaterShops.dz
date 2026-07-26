@@ -129,7 +129,7 @@ function saveProduct(){
 
 let product={
 
-id:Date.now(),
+id: editId || Date.now(),
 
 name:
 document.getElementById("name").value,
@@ -140,11 +140,19 @@ document.getElementById("category").value,
 
 
 price:
-Number(document.getElementById("price").value),
+Number(document.getElementById("price").
 
 
 image:
-document.getElementById("image").value
+document.getElementById("image").value,
+
+
+description:
+document.getElementById("description").value,
+
+
+rating:
+Number(document.getElementById("rating").value) || 5
 
 
 };
@@ -218,8 +226,6 @@ ${"⭐".repeat(p.rating || 5)}
 <button onclick="deleteProduct(${index})">
 
 حذف
-
-</button>
 
 </button>
 
