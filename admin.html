@@ -123,6 +123,8 @@ placeholder="التقييم من 1 إلى 5">
 
 <script>
 
+Notification.requestPermission();
+
 let password = prompt("كلمة سر الإدارة");
 
 if(password !== "08092005"){
@@ -389,7 +391,25 @@ box.innerHTML += `
 
 
 <p>
-الحالة: ${order.status}
+الحالة:
+<select onchange="changeStatus(${index},this.value)">
+<option ${order.status=="جديد"?"selected":""}>
+جديد
+</option>
+
+<option ${order.status=="جاري التحضير"?"selected":""}>
+جاري التحضير
+</option>
+
+<option ${order.status=="تم الشحن"?"selected":""}>
+تم الشحن
+</option>
+
+<option ${order.status=="مكتمل"?"selected":""}>
+مكتمل
+</option>
+
+</select>
 </p>
 
 
@@ -473,8 +493,35 @@ let sound = new Audio(
 
 sound.play();
 
+
 let lastOrder =
 orders[orders.length - 1];
+
+
+// إشعار المتصفح
+
+if(Notification.permission === "granted"){
+
+new Notification("🔔 Water Shop",{
+
+body:
+"طلب جديد من: "
++ lastOrder.name
++
+"\nالمجموع: "
++ lastOrder.total
++
+" دج"
+
+});
+
+}
+
+else if(Notification.permission !== "denied"){
+
+Notification.requestPermission();
+
+}
 
 
 notification.innerHTML = `
@@ -492,7 +539,6 @@ notification.innerHTML = `
 `;
 
 
-
 localStorage.setItem(
 "oldOrders",
 JSON.stringify(orders)
@@ -504,8 +550,25 @@ JSON.stringify(orders)
 }
 
 
-setInterval(checkNewOrders,3000);
+// تغيير حالة الطلب
+function changeStatus(index,status){
 
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+orders[index].status = status;
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+showOrders();
+
+}
+
+
+setInterval(checkNewOrders,3000);
 
 
 showProducts();
