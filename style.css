@@ -518,3 +518,44 @@ box-shadow:0 5px 20px rgba(0,0,0,.2);
 #toast.show{
 opacity:1;
 }
+
+.alert-order{
+
+background:linear-gradient(135deg,#25d366,#128c7e);
+
+color:white;
+
+padding:20px;
+
+border-radius:20px;
+
+font-size:20px;
+
+font-weight:bold;
+
+text-align:center;
+
+margin:20px auto;
+
+max-width:350px;
+
+box-shadow:0 10px 30px #0004;
+
+animation:shake .6s infinite;
+
+}
+
+
+@keyframes shake{
+
+0%{transform:translateX(0)}
+
+25%{transform:translateX(5px)}
+
+50%{transform:translateX(-5px)}
+
+75%{transform:translateX(5px)}
+
+100%{transform:translateX(0)}
+
+}
