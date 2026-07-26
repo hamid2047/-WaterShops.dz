@@ -165,6 +165,42 @@ message +=
 "\n💰 المجموع: "+total+" دج";
 
 
+// حفظ الطلب
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+
+let order = {
+
+id: orderNumber,
+
+date: date,
+
+name: name,
+
+phone: phone,
+
+address: address,
+
+products: cart,
+
+total: total,
+
+status:"جديد"
+
+};
+
+
+orders.push(order);
+
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+
 
 window.open(
 
