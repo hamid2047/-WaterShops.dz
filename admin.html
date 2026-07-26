@@ -123,7 +123,9 @@ placeholder="التقييم من 1 إلى 5">
 
 <script>
 
-Notification.requestPermission();
+if(Notification.permission !== "granted"){
+    Notification.requestPermission();
+}
 
 let password = prompt("كلمة سر الإدارة");
 
@@ -527,6 +529,12 @@ Notification.requestPermission();
 notification.innerHTML = `
 
 <div class="alert-order">
+
+<button onclick="document.getElementById('notification').innerHTML=''">
+❌ إغلاق
+</button>
+
+<br><br>
 
 🔔 طلب جديد وصل!<br>
 
