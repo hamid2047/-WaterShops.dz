@@ -451,3 +451,16 @@ product.category === category
 displayProducts(result);
 
 }
+function goCheckout(){
+
+    if(cart.length === 0){
+
+        alert("السلة فارغة");
+
+        return;
+
+    }
+
+    window.location.href = "checkout.html";
+
+}
