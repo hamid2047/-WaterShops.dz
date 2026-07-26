@@ -96,13 +96,18 @@ document.getElementById("address").value;
 
 
 
-let cart =
-JSON.parse(localStorage.getItem("cart")) || [];
+if(name==="" || phone==="" || address===""){
+
+alert("يرجى ملء جميع المعلومات");
+
+return;
+
+}
 
 
 
 let message =
-"🛒 طلب جديد من Premium Store\n\n";
+"🛒 طلب جديد من Water Shop💧\n\n";
 
 
 message +=
