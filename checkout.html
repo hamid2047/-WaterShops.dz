@@ -115,7 +115,10 @@ new Date().toLocaleString("ar-DZ");
 
 
 let message =
-"🛒 طلب جديد من Water Shop💧\n\n";
+"━━━━━━━━━━━━━━\n"+
+"🛍️ Water Shop 💧\n"+
+"📦 طلب جديد\n"+
+"━━━━━━━━━━━━━━\n\n";
 
 
 message +=
@@ -139,33 +142,30 @@ message +=
 
 
 message +=
-"📦 المنتجات:\n";
+"🛒 المنتجات:\n";
 
-
-
-let total=0;
-
+let total = 0;
 
 cart.forEach(item=>{
 
+let itemTotal = item.price * item.quantity;
 
 message +=
-"- "+item.name+
+"▫️ "+item.name+
 " × "+item.quantity+
 " = "+
-(item.price * item.quantity)
-+" دج\n";
+itemTotal+
+" دج\n";
 
-
-total += item.price * item.quantity;
-
+total += itemTotal;
 
 });
 
 
-
 message +=
-"\n💰 المجموع: "+total+" دج";
+"\n━━━━━━━━━━━━━━\n"+
+"💰 المجموع: "+total+" دج\n"+
+"━━━━━━━━━━━━━━";
 
 
 // حفظ الطلب
@@ -213,6 +213,11 @@ window.open(
 );
 
 localStorage.removeItem("cart");
+localStorage.removeItem("cart-count");
+
+document.getElementById("name").value="";
+document.getElementById("phone").value="";
+document.getElementById("address").value="";
 
 alert("✅ تم إرسال طلبك بنجاح");
 
