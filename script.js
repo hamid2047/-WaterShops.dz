@@ -9,26 +9,42 @@ id:1,
 name:"ساعة فاخرة",
 category:"إكسسوارات",
 price:4500,
-image:"https://via.placeholder.com/400",
-description:"ساعة أنيقة بتصميم فاخر"
+image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d",
+rating:5,
+description:"ساعة أنيقة مناسبة لكل المناسبات"
 },
+
 
 {
 id:2,
 name:"عطر فاخر",
 category:"عطور",
 price:6000,
-image:"https://via.placeholder.com/400",
-description:"رائحة جذابة وثبات ممتاز"
+image:"https://images.unsplash.com/photo-1541643600914-78b084683601",
+rating:5,
+description:"عطر برائحة جذابة وثبات ممتاز"
 },
+
 
 {
 id:3,
 name:"هاتف ذكي",
 category:"إلكترونيات",
 price:35000,
-image:"https://via.placeholder.com/400",
-description:"هاتف سريع وعصري"
+image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+rating:4,
+description:"هاتف عصري بأداء قوي"
+},
+
+
+{
+id:4,
+name:"قميص أنيق",
+category:"ملابس",
+price:3000,
+image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+rating:5,
+description:"قميص بجودة عالية"
 }
 
 ];
@@ -79,8 +95,10 @@ box.innerHTML += `
 <p>${product.category || ""}</p>
 
 
-<div class="price">
-${product.price} دج
+<div class="rating">
+
+${"⭐".repeat(product.rating)}
+
 </div>
 
 
@@ -424,3 +442,12 @@ encodeURIComponent(message)
 
 
 updateCart();
+function filterCategory(category){
+
+let result = products.filter(product =>
+product.category === category
+);
+
+displayProducts(result);
+
+}
