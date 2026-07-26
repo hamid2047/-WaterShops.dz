@@ -83,7 +83,7 @@ list.forEach(product=>{
 
 box.innerHTML += `
 
-<div class="product">
+<div class="product" onclick="openProduct(${product.id})">
 
 
 <img src="${product.image}">
@@ -104,7 +104,7 @@ ${"⭐".repeat(product.rating)}
 
 <button onclick="location.href='product.html?id=${product.id}'">
 
-🛒 أضف للسلة
+👁️ عرض التفاصيل
 
 </button>
 
@@ -462,5 +462,12 @@ function goCheckout(){
     }
 
     window.location.href = "checkout.html";
+
+}
+
+function openProduct(id){
+
+window.location.href =
+"product.html?id=" + id;
 
 }
