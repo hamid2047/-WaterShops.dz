@@ -102,6 +102,17 @@ placeholder="التقييم من 1 إلى 5">
 
 
 
+<h2>
+📦 الطلبات الجديدة
+</h2>
+
+
+<div id="admin-orders">
+
+</div>
+
+
+
 </section>
 
 
@@ -126,6 +137,8 @@ let editId = null;
 
 function saveProduct(){
 
+let isEdit = editId !== null;
+
 
 let product={
 
@@ -140,7 +153,7 @@ document.getElementById("category").value,
 
 
 price:
-Number(document.getElementById("price").
+Number(document.getElementById("price").value),
 
 
 image:
@@ -159,7 +172,22 @@ Number(document.getElementById("rating").value) || 5
 
 
 
+if(editId){
+
+let index =
+products.findIndex(p=>p.id==editId);
+
+products[index] = product;
+
+editId = null;
+
+}
+
+else{
+
 products.push(product);
+
+}
 
 
 localStorage.setItem(
@@ -172,7 +200,7 @@ JSON.stringify(products)
 showProducts();
 
 
-alert("تمت إضافة المنتج");
+alert(isEdit ? "تم تحديث المنتج" : "تمت إضافة المنتج");
 
 
 }
@@ -259,6 +287,9 @@ document.getElementById("price").value = p.price;
 
 document.getElementById("image").value = p.image;
 
+document.getElementById("description").value = p.description;
+
+document.getElementById("rating").value = p.rating;
 
 editId = p.id;
 
@@ -289,10 +320,111 @@ showProducts();
 
 }
 
+function showOrders(){
 
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+
+let box =
+document.getElementById("admin-orders");
+
+
+if(!box) return;
+
+
+box.innerHTML="";
+
+
+orders.forEach((order,index)=>{
+
+
+box.innerHTML += `
+
+
+<div class="product">
+
+
+<h3>
+🆔 #${order.id}
+</h3>
+
+
+<p>
+📅 ${order.date}
+</p>
+
+
+<p>
+👤 ${order.name}
+</p>
+
+
+<p>
+📞 ${order.phone}
+</p>
+
+
+<p>
+📍 ${order.address}
+</p>
+
+
+<p>
+💰 ${order.total} دج
+</p>
+
+
+<p>
+الحالة: ${order.status}
+</p>
+
+
+<button onclick="deleteOrder(${index})">
+
+🗑️ حذف الطلب
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+function deleteOrder(index){
+
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+
+orders.splice(index,1);
+
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+
+showOrders();
+
+
+}
 
 showProducts();
-
+showOrders();
 
 </script>
 
