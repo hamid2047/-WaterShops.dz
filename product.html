@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>تفاصيل المنتج</title>
+<title>تفاصيل المنتج | Water Shop</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -20,13 +20,19 @@
 <header>
 
 <div class="logo">
-🛍️ Water shop💧
+🛍️ Water Shop 💧
+
+<span>
+متجر إلكتروني
+</span>
+
 </div>
 
 
-<a href="index.html" style="color:white">
-العودة للمتجر
+<a href="index.html" style="color:white;text-decoration:none">
+⬅ العودة للمتجر
 </a>
+
 
 </header>
 
@@ -46,12 +52,34 @@
 
 
 
+<section>
+
+<h2>
+منتجات مشابهة
+</h2>
+
+
+<div class="products-container" id="similar-products">
+
+</div>
+
+
+</section>
+
+
+
+
 
 <script>
 
 
 let products =
 JSON.parse(localStorage.getItem("products")) || [];
+
+
+
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
 
 
 
@@ -93,19 +121,31 @@ ${product.price} دج
 </h2>
 
 
-<p>
-${"⭐".repeat(product.rating || 5)}
-</p>
+<div class="rating">
+
+${"⭐".repeat(product.rating)}
+
+</div>
 
 
+
 <p>
-${product.description || "منتج مميز بجودة عالية"}
+${product.description}
 </p>
+
 
 
 <button onclick="addToCart()">
 
 🛒 أضف للسلة
+
+</button>
+
+
+<button class="order"
+onclick="buyNow()">
+
+💬 اطلب الآن
 
 </button>
 
@@ -122,10 +162,6 @@ ${product.description || "منتج مميز بجودة عالية"}
 
 
 function addToCart(){
-
-
-let cart =
-JSON.parse(localStorage.getItem("cart")) || [];
 
 
 
@@ -161,10 +197,98 @@ JSON.stringify(cart)
 
 
 
-alert("تمت إضافة المنتج للسلة");
+alert("✅ تمت إضافة المنتج للسلة");
 
 
 }
+
+
+
+
+
+function buyNow(){
+
+
+let message =
+
+"💧 Water Shop\n\n"+
+"أريد طلب:\n"+
+product.name+
+"\nالسعر: "+
+product.price+
+" دج";
+
+
+window.open(
+
+"https://wa.me/213778196483?text="+
+encodeURIComponent(message)
+
+);
+
+
+}
+
+
+
+
+
+// منتجات مشابهة
+
+
+let similar =
+products.filter(p=>
+
+p.category == product.category
+&&
+p.id != product.id
+
+);
+
+
+
+let similarBox =
+document.getElementById("similar-products");
+
+
+
+similar.forEach(p=>{
+
+
+similarBox.innerHTML += `
+
+
+<div class="product">
+
+
+<img src="${p.image}">
+
+
+<h3>
+${p.name}
+</h3>
+
+
+<p class="price">
+${p.price} دج
+</p>
+
+
+<button onclick="location.href='product.html?id=${p.id}'">
+
+عرض
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+});
+
 
 
 </script>
