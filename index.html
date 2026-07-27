@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title> water shop 💧</title>
+<title>Water Shop 💧</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,14 +15,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 </head>
 
-
 <body>
+
+<!-- القائمة الجانبية -->
 
 <div id="sidebar" class="sidebar">
 
-<button class="close-btn" onclick="closeMenu()">
-✖
-</button>
+<button class="close-btn" onclick="closeMenu()">✖</button>
 
 <a href="index.html">🏠 الرئيسية</a>
 
@@ -30,42 +29,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <a href="track.html">📦 تتبع الطلب</a>
 
-<a href="#" onclick="openAdmin()">
-🔐 الإدارة
-</a>
+<a href="#" onclick="openAdmin()">🔐 الإدارة</a>
 
 <a href="https://wa.me/213778196483" target="_blank">
 💬 واتساب
 </a>
 
-<a href="#contact">
-📞 اتصل بنا
-</a>
+<a href="#contact">📞 اتصل بنا</a>
 
 </div>
 
-<button class="menu-btn" onclick="openMenu()">
-☰
-</button>
-
-<!-- Header -->
+<button class="menu-btn" onclick="openMenu()">☰</button>
 
 <header>
 
 <div class="logo">
 
-🛍️ Water Shop💧
+💧 Water Shop
 
-<span>
-    متجر إلكتروني
-</span>
+<span>متجر إلكتروني</span>
 
 </div>
 
-
 <div class="search-box">
 
-<input 
+<input
 type="text"
 id="search"
 placeholder="ابحث عن منتج..."
@@ -74,8 +62,6 @@ onkeyup="searchProducts()">
 <i class="fa fa-search"></i>
 
 </div>
-
-
 
 <nav>
 
@@ -87,13 +73,9 @@ onkeyup="searchProducts()">
 
 </nav>
 
-
-
 <button class="mode" onclick="toggleMode()">
 🌙
 </button>
-
-
 
 <div class="cart-button" onclick="openCart()">
 
@@ -103,148 +85,77 @@ onkeyup="searchProducts()">
 
 </div>
 
-
 </header>
-
-
-
-
-
-<!-- Hero -->
 
 <section class="hero">
 
-
 <div>
 
-<h1>
-أفضل المنتجات في مكان واحد  🚀
-</h1>
-
+<h1>أفضل المنتجات بأفضل الأسعار 🚀</h1>
 
 <p>
-     جودة عالية • أسعار منافسة •  توصيل سريع
+توصيل سريع - جودة ممتازة - أسعار منافسة
 </p>
 
+<a href="#products">ابدأ التسوق</a>
 
-<a href="#products">
-ابدأ التسوق
-</a>
-<a href="https://wa.me/213778196483"
-target="_blank">
-
-💬 اطلب عبر واتساب
-
+<a href="https://wa.me/213778196483" target="_blank">
+اطلب عبر واتساب
 </a>
 
 </div>
 
-
 </section>
-
-
-
-
-
-
-<!-- Categories -->
 
 <section id="categories">
 
-
-<h2>
-الأقسام
-</h2>
-
+<h2>الأقسام</h2>
 
 <div class="categories">
 
-<button onclick="filterCategory('ملابس')">
-👕 ملابس
+<button onclick="filterCategory('مياه')">
+💧 مياه
 </button>
 
-<button onclick="filterCategory('إلكترونيات')">
-📱 إلكترونيات
-</button>
-
-<button onclick="filterCategory('عطور')">
-🌹 عطور
+<button onclick="filterCategory('مضخات')">
+⚙️ مضخات
 </button>
 
 <button onclick="filterCategory('إكسسوارات')">
-⌚ إكسسوارات
+🛠️ إكسسوارات
+</button>
+
+<button onclick="displayProducts(products)">
+📦 الكل
 </button>
 
 </div>
 
-
 </section>
-
-
-
-
-
-
-<!-- Products -->
-
 
 <section id="products">
 
+<h2>منتجاتنا</h2>
 
-<h2>
-منتجاتنا
-</h2>
-
-
-
-<div class="products-container" id="products-list">
-
-
-<!-- المنتجات تأتي من JavaScript -->
-
+<div id="products-list" class="products-container">
 
 </div>
-
-
 
 </section>
 
-
-
-
-
-
-
-
-<!-- Cart -->
-
+<!-- السلة -->
 
 <div class="cart" id="cart">
 
-
 <div class="cart-top">
 
-<h2>
-🛒 السلة
-</h2>
+<h2>🛒 السلة</h2>
 
-
-<button onclick="closeCart()">
-✕
-</button>
-
+<button onclick="closeCart()">✖</button>
 
 </div>
 
-
-
-
-<div id="cart-items">
-
-</div>
-
-
-
+<div id="cart-items"></div>
 
 <div class="cart-total">
 
@@ -252,60 +163,38 @@ target="_blank">
 
 <strong>
 
-<span id="total">
-0
-</span>
+<span id="total">0</span>
 
 دج
 
 </strong>
 
-
 </div>
 
-
-
-
-<input 
+<input
 id="customer-name"
 placeholder="اسم الزبون">
 
-
-<input 
+<input
 id="customer-address"
 placeholder="العنوان">
 
+<button class="order" onclick="goCheckout()">
 
-
-
-<button class="order" onclick="location.href='checkout.html'">
 إتمام الطلب
+
 </button>
 
 </div>
 
+<!-- الخلفية -->
 
+<div id="overlay" onclick="closeCart()"></div>
 
+<!-- زر واتساب -->
 
-
-
-<!-- Overlay -->
-
-<div id="overlay"
-onclick="closeCart()">
-
-</div>
-
-
-
-
-
-
-
-
-<!-- Floating Whatsapp -->
-
-<a href="https://wa.me/213778196483"
+<a
+href="https://wa.me/213778196483"
 class="whatsapp"
 target="_blank">
 
@@ -313,16 +202,9 @@ target="_blank">
 
 </a>
 
-
-
-
-
-
 <footer id="contact">
 
-<h3>
-Water Shop 💧
-</h3>
+<h3>Water Shop 💧</h3>
 
 <p>
 جميع الحقوق محفوظة © 2026
@@ -330,13 +212,7 @@ Water Shop 💧
 
 </footer>
 
-
-
-
-<script type="module" src="script.js"></script>
-
 <div id="toast"></div>
-
 
 <script>
 
@@ -346,26 +222,21 @@ document.getElementById("sidebar").style.width="280px";
 
 }
 
-
 function closeMenu(){
 
 document.getElementById("sidebar").style.width="0";
 
 }
 
-
 function openAdmin(){
 
 let pass = prompt("🔐 أدخل كلمة سر الإدارة");
 
-
-if(pass === "08092005"){
+if(pass==="08092005"){
 
 window.location.href="admin.html";
 
-}
-
-else{
+}else{
 
 alert("❌ كلمة السر خاطئة");
 
@@ -375,29 +246,8 @@ alert("❌ كلمة السر خاطئة");
 
 </script>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDc2jyTOHm93pYrXbLLteOc_XPqu9J-x4k",
-    authDomain: "watershop-dz.firebaseapp.com",
-    projectId: "watershop-dz",
-    storageBucket: "watershop-dz.firebasestorage.app",
-    messagingSenderId: "354274691175",
-    appId: "1:354274691175:web:5391c1ffcb35735fa5acc2",
-    measurementId: "G-E5Y2F0NENL"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+<script type="module" src="script.js"></script>
 
 </body>
+
 </html>
