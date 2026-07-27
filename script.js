@@ -45,17 +45,17 @@ price:3000,
 image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
 rating:5,
 description:"قميص بجودة عالية"
-}
+},
 
-
-id:4,
+{
+id:5,
 name:"FC26",
-category:"ملابس"
+category:"ألعاب",
 price:2500,
 image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d",
-rating:4.5,
-description:GO GO GO
-},
+rating:4,
+description:"لعبة كرة قدم ممتعة"
+}
 
 ];
 
