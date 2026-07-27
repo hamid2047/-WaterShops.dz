@@ -18,6 +18,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <body>
 
+<div id="sidebar" class="sidebar">
+
+<button class="close-btn" onclick="closeMenu()">
+✖
+</button>
+
+<a href="index.html">🏠 الرئيسية</a>
+
+<a href="#products">🛍️ المنتجات</a>
+
+<a href="track.html">📦 تتبع الطلب</a>
+
+<a href="admin.html">⚙️ لوحة الإدارة</a>
+
+<a href="https://wa.me/213778196483" target="_blank">
+💬 واتساب
+</a>
+
+<a href="#contact">
+📞 اتصل بنا
+</a>
+
+</div>
+
+<button class="menu-btn" onclick="openMenu()">
+☰
+</button>
 
 <!-- Header -->
 
@@ -307,6 +334,20 @@ Water Shop 💧
 <script src="script.js"></script>
 
 <div id="toast"></div>
+
+
+<script>
+
+function openMenu(){
+document.getElementById("sidebar").style.width="280px";
+}
+
+function closeMenu(){
+document.getElementById("sidebar").style.width="0";
+}
+
+</script>
+
 
 </body>
 </html>
