@@ -163,8 +163,40 @@ return;
 
 let reader = new FileReader();
 
-
 reader.onload = function(){
+
+let img = new Image();
+
+img.onload = function(){
+
+let canvas = document.createElement("canvas");
+
+let ctx = canvas.getContext("2d");
+
+
+let maxWidth = 800;
+
+let scale = maxWidth / img.width;
+
+
+canvas.width = maxWidth;
+
+canvas.height = img.height * scale;
+
+
+ctx.drawImage(
+img,
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+let imageCompressed = canvas.toDataURL(
+"image/jpeg",
+0.7
+);
 
 let product = {
 
@@ -176,7 +208,7 @@ category: document.getElementById("category").value,
 
 price: Number(document.getElementById("price").value),
 
-image: reader.result,
+image: imageCompressed,
 
 description: document.getElementById("description").value,
 
@@ -206,6 +238,11 @@ alert("✅ تمت إضافة المنتج");
 
 
 reader.readAsDataURL(file);
+};
+
+img.src = reader.result;
+
+};
 
 }
 
