@@ -163,40 +163,7 @@ return;
 
 let reader = new FileReader();
 
-reader.onload = function(){
-
-let img = new Image();
-
-img.onload = function(){
-
-let canvas = document.createElement("canvas");
-
-let ctx = canvas.getContext("2d");
-
-
-let maxWidth = 800;
-
-let scale = maxWidth / img.width;
-
-
-canvas.width = maxWidth;
-
-canvas.height = img.height * scale;
-
-
-ctx.drawImage(
-img,
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-
-let imageCompressed = canvas.toDataURL(
-"image/jpeg",
-0.7
-);
+reader.onload = function(e){
 
 let product = {
 
@@ -208,7 +175,7 @@ category: document.getElementById("category").value,
 
 price: Number(document.getElementById("price").value),
 
-image: imageCompressed,
+image: e.target.result,
 
 description: document.getElementById("description").value,
 
@@ -220,25 +187,34 @@ rating: Number(document.getElementById("rating").value) || 5
 products.push(product);
 
 
+try {
+
 localStorage.setItem(
 "products",
 JSON.stringify(products)
 );
 
+alert("✅ تمت إضافة المنتج");
 
 showProducts();
 
 clearForm();
 
-console.log(product);
 
-alert("✅ تمت إضافة المنتج");
+}
+catch(error){
+
+alert("❌ الصورة كبيرة جدًا، اختر صورة أصغر");
+
+console.log(error);
+
+}
+
 
 };
 
 
 reader.readAsDataURL(file);
-};
 
 img.src = reader.result;
 
