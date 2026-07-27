@@ -1,117 +1,113 @@
-// =========================
-// قاعدة المنتجات
-// =========================
+// ==========================
+// Firebase
+// ==========================
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyDc2jyTOHm93pYrXbLLteOc_XPqu9J-x4k",
+authDomain: "watershop-dz.firebaseapp.com",
+projectId: "watershop-dz",
+storageBucket: "watershop-dz.firebasestorage.app",
+messagingSenderId: "354274691175",
+appId: "1:354274691175:web:5391c1ffcb35735fa5acc2"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ==========================
+// المنتجات
+// ==========================
 
 let products = [];
 
-if(!localStorage.getItem("products")){
-localStorage.setItem(
-"products",
-JSON.stringify(products)
-);
+async function loadProducts(){
+
+const querySnapshot = await getDocs(collection(db,"products"));
+
+products = [];
+
+querySnapshot.forEach((doc)=>{
+
+products.push({
+id:doc.id,
+...doc.data()
+});
+
+});
+
+displayProducts(products);
+
 }
 
+function displayProducts(list){
 
-
-
-// =========================
-// السلة
-// =========================
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-
-if(localStorage.getItem("theme") === "dark"){
-document.body.classList.add("dark");
-}
-
-// عرض المنتجات
-
-function displayProducts(list = products){
-
-let box = document.getElementById("products-list");
+let box=document.getElementById("products-list");
 
 if(!box) return;
 
-
 box.innerHTML="";
-
 
 list.forEach(product=>{
 
-
-box.innerHTML += `
+box.innerHTML+=`
 
 <div class="product">
 
-
 <img src="${product.image}">
-
 
 <h3>${product.name}</h3>
 
+<p>${product.category}</p>
 
-<p>${product.category || ""}</p>
+<p>${product.price} دج</p>
 
-
-<div class="rating">
-
-${"⭐".repeat(product.rating)}
-<span>(${product.rating}/5)</span>
-
-</div>
-
-
-<button onclick="location.href='product.html?id=${product.id}'">
-👁️ عرض التفاصيل
-</button>
-
-<button onclick="event.stopPropagation(); addToCart(${product.id})">
+<button onclick="addToCart('${product.id}')">
 🛒 أضف للسلة
 </button>
-
 
 </div>
 
 `;
 
-
 });
-
 
 }
 
+loadProducts();
 
+// ==========================
+// السلة
+// ==========================
 
-displayProducts();
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+function saveCart(){
 
+localStorage.setItem("cart",JSON.stringify(cart));
 
-
-
-
-// إضافة للسلة
+}
 
 function addToCart(id){
 
+let product = products.find(p=>p.id==id);
 
-let product =
-products.find(p=>p.id===id);
+if(!product) return;
 
-
-
-let item =
-cart.find(p=>p.id===id);
-
-
+let item = cart.find(p=>p.id==id);
 
 if(item){
 
 item.quantity++;
 
-}
-
-else{
+}else{
 
 cart.push({
 
@@ -122,52 +118,33 @@ quantity:1
 
 }
 
-
 saveCart();
 
 updateCart();
 
-showToast("✅ تمت إضافة المنتج إلى السلة");
+alert("✅ تمت إضافة المنتج");
 
 }
 
-
-
-
-
-
-
-// تحديث السلة
-
 function updateCart(){
 
-
-let box =
-document.getElementById("cart-items");
-
+let box=document.getElementById("cart-items");
 
 if(!box) return;
 
-
 box.innerHTML="";
-
 
 let total=0;
 
-
 cart.forEach((item,index)=>{
 
-
 total += item.price * item.quantity;
-
-
 
 box.innerHTML += `
 
 <div>
 
-
-<strong>${item.name}</strong>
+<b>${item.name}</b>
 
 <br>
 
@@ -175,77 +152,53 @@ ${item.price} دج
 
 <br>
 
-الكمية:
-<button onclick="changeQuantity(${index},-1)">-</button>
-
 ${item.quantity}
 
 <button onclick="changeQuantity(${index},1)">+</button>
 
+<button onclick="changeQuantity(${index},-1)">-</button>
 
-<br>
-
-<button onclick="removeItem(${index})">
-
-حذف
-
-</button>
-
+<button onclick="removeItem(${index})">🗑️</button>
 
 </div>
 
 `;
 
-
 });
 
+document.getElementById("total").innerHTML=total;
 
+document.getElementById("cart-count").innerHTML=
 
-let totalBox=document.getElementById("total");
-
-if(totalBox){
-totalBox.innerHTML=total;
-}
-
-
-let count=document.getElementById("cart-count");
-
-if(count){
-count.innerHTML =
-cart.reduce((sum,item)=>sum+item.quantity,0);
-}
+cart.reduce((s,i)=>s+i.quantity,0);
 
 }
 
+updateCart();
 
+// ==========================
 // تغيير الكمية
+// ==========================
 
 function changeQuantity(index,value){
 
-
 cart[index].quantity += value;
 
-
-if(cart[index].quantity <=0){
+if(cart[index].quantity <= 0){
 
 cart.splice(index,1);
 
 }
 
-
 saveCart();
 
 updateCart();
 
-showToast("تم تغيير الكمية  ✅");
-
 }
 
-
-
-
-
-// حذف
+// ==========================
+// حذف منتج
+// ==========================
 
 function removeItem(index){
 
@@ -255,227 +208,82 @@ saveCart();
 
 updateCart();
 
-showToast("🗑️ تم حذف المنتج من السلة");
-
 }
 
-
-
-
-
-// حفظ السلة
-
-function saveCart(){
-
-localStorage.setItem(
-"cart",
-JSON.stringify(cart)
-);
-
-}
-
-
-
-
-
-// فتح وإغلاق السلة
-
-function openCart(){
-
-let cartBox = document.getElementById("cart");
-
-if(cartBox){
-cartBox.classList.add("active");
-}
-
-}
-
-
-function closeCart(){
-
-let cartBox = document.getElementById("cart");
-
-if(cartBox){
-cartBox.classList.remove("active");
-}
-
-}
-
-
-
-
-
-
+// ==========================
 // البحث
+// ==========================
 
 function searchProducts(){
 
+let text = document.getElementById("search").value.toLowerCase();
 
-let value =
-document.getElementById("search").value
-.toLowerCase();
+let result = products.filter(product =>
 
-
-let result =
-products.filter(product=>
-
-product.name.toLowerCase()
-.includes(value)
+product.name.toLowerCase().includes(text)
 
 );
 
-
 displayProducts(result);
-
 
 }
 
+// ==========================
+// الأقسام
+// ==========================
 
+function filterCategory(category){
 
+if(category==="الكل"){
 
-
-
-// إرسال واتساب
-
-function sendWhatsApp(){
-
-
-if(cart.length===0){
-
-showToast("⚠️ السلة فارغة");
+displayProducts(products);
 
 return;
 
 }
 
+let result = products.filter(product=>
 
+product.category===category
 
-let name =
-document.getElementById("customer-name").value;
-
-
-let address =
-document.getElementById("customer-address").value;
-
-
-
-let message =
-"💧 Water Shop\n🛒 طلب جديد\n\n";
-
-
-message +=
-"👤 الاسم: "+name+"\n";
-
-
-message +=
-"📍 العنوان: "+address+"\n\n";
-
-
-message +=
-"📦 المنتجات:\n";
-
-
-
-let total=0;
-
-
-cart.forEach(item=>{
-
-
-message +=
-
-"- "+item.name+
-" × "+item.quantity+
-" = "+
-(item.price*item.quantity)+
-" دج\n";
-
-
-total += item.price*item.quantity;
-
-
-});
-
-
-message +=
-
-"\n💰 المجموع: "+
-total+
-" دج";
-
-
-
-window.open(
-
-"https://wa.me/213778196483?text="+
-encodeURIComponent(message)
-
-);
-
-
-}
-
-
-
-updateCart();
-function filterCategory(category){
-
-let result = products.filter(product =>
-product.category === category
 );
 
 displayProducts(result);
 
 }
-function goCheckout(){
 
-    if(cart.length === 0){
+// ==========================
+// فتح وإغلاق السلة
+// ==========================
 
-showToast("⚠️ السلة فارغة");
+function openCart(){
 
-        return;
-
-    }
-
-    window.location.href = "checkout.html";
+document.getElementById("cart").classList.add("active");
 
 }
 
-function openProduct(id){
+function closeCart(){
 
-window.location.href =
-"product.html?id=" + id;
-
-}
-
-function showToast(message){
-
-let toast =
-document.getElementById("toast");
-
-toast.innerHTML = message;
-
-toast.classList.add("show");
-
-setTimeout(function(){
-
-toast.classList.remove("show");
-
-},2500);
+document.getElementById("cart").classList.remove("active");
 
 }
+
+// ==========================
+// الوضع الليلي
+// ==========================
 
 function toggleMode(){
 
 document.body.classList.toggle("dark");
 
-localStorage.setItem(
-"theme",
-document.body.classList.contains("dark")
-? "dark"
-: "light"
-);
-
 }
 
-updateCart();
+// ==========================
+// إتمام الطلب
+// ==========================
+
+function goCheckout(){
+
+alert("سنربط الطلبات بـ Firebase في الخطوة القادمة.");
+
+}
