@@ -143,36 +143,48 @@ let editId = null;
 
 function saveProduct(){
 
+let name = document.getElementById("name").value;
+let category = document.getElementById("category").value;
+let price = document.getElementById("price").value;
+let description = document.getElementById("description").value;
+let rating = document.getElementById("rating").value;
+
 let file = document.getElementById("image").files[0];
 
+
 if(!file){
-alert("اختر صورة المنتج أولا");
-return;
+    alert("اختر صورة المنتج أولا");
+    return;
 }
 
 
 let reader = new FileReader();
 
 
-reader.onload = function(){
+reader.onload = function(e){
+
 
 let product = {
 
 id: Date.now(),
 
-name: document.getElementById("name").value,
+name:name,
 
-category: document.getElementById("category").value,
+category:category,
 
-price: Number(document.getElementById("price").value),
+price:Number(price),
 
-image: reader.result,
+image:e.target.result,
 
-description: document.getElementById("description").value,
+description:description,
 
-rating: Number(document.getElementById("rating").value) || 5
+rating:Number(rating) || 5
 
 };
+
+
+let products =
+JSON.parse(localStorage.getItem("products")) || [];
 
 
 products.push(product);
@@ -184,18 +196,17 @@ JSON.stringify(products)
 );
 
 
-showProducts();
+alert("✅ تم حفظ المنتج بنجاح");
 
 
-clearForm();
+location.reload();
 
-
-alert("✅ تمت إضافة المنتج");
 
 };
 
 
 reader.readAsDataURL(file);
+
 
 }
 
