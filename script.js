@@ -50,7 +50,7 @@ description:"قميص بجودة عالية"
 
 id:4,
 name:"FC26",
-category:"الالعاب",
+category:"ملابس"
 price:2500,
 image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d",
 rating:4.5,
