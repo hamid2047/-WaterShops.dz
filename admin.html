@@ -153,94 +153,39 @@ let editId = null;
 
 function saveProduct(){
 
-let isEdit = editId !== null;
-
-
 let file = document.getElementById("image").files[0];
 
-
 if(!file){
-
 alert("اختر صورة المنتج أولا");
-
 return;
-
 }
 
 
 let reader = new FileReader();
 
-if(!file && editId){
-
-let oldProduct = products.find(p=>p.id==editId);
-
-if(oldProduct){
-    saveEditedProduct(oldProduct.image);
-}
-
-return;
-
-}
-
-if(!file){
-
-alert("اختر صورة المنتج أولا");
-
-return;
-
-}
-
 
 reader.onload = function(){
 
+let product = {
 
-let product={
+id: Date.now(),
 
-id: editId || Date.now(),
+name: document.getElementById("name").value,
 
-name:
-document.getElementById("name").value,
+category: document.getElementById("category").value,
 
+price: Number(document.getElementById("price").value),
 
-category:
-document.getElementById("category").value,
+image: reader.result,
 
+description: document.getElementById("description").value,
 
-price:
-Number(document.getElementById("price").value),
-
-
-image:
-reader.result,
-
-
-description:
-document.getElementById("description").value,
-
-
-rating:
-Number(document.getElementById("rating").value) || 5
+rating: Number(document.getElementById("rating").value) || 5
 
 };
 
 
-
-if(editId){
-
-let index =
-products.findIndex(p=>p.id==editId);
-
-products[index] = product;
-
-editId = null;
-
-}
-
-else{
-
 products.push(product);
-
-}
 
 
 localStorage.setItem(
@@ -249,20 +194,18 @@ JSON.stringify(products)
 );
 
 
-
-
 showProducts();
 
 clearForm();
 
-alert(isEdit ? "تم تحديث المنتج" : "تمت إضافة المنتج");
+console.log(product);
 
+alert("✅ تمت إضافة المنتج");
 
 };
 
 
 reader.readAsDataURL(file);
-
 
 }
 
