@@ -152,13 +152,21 @@ let editId = null;
 // إضافة منتج
 
 function saveProduct(){
-    
-    alert("الدالة تعمل");
 
 let isEdit = editId !== null;
 
 
 let file = document.getElementById("image").files[0];
+
+
+if(!file){
+
+alert("اختر صورة المنتج أولا");
+
+return;
+
+}
+
 
 let reader = new FileReader();
 
