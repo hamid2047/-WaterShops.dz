@@ -124,29 +124,26 @@ placeholder="التقييم من 1 إلى 5">
 
 <script>
 
-<script>
+if(Notification.permission !== "granted"){
+    Notification.requestPermission();
+}
 
-let adminPassword = "08092005";
 
-let enteredPassword = prompt("🔐 أدخل كلمة سر الإدارة");
+// 🔐 حماية الإدارة
+let password = prompt("أدخل كلمة سر الإدارة");
 
-if(enteredPassword !== adminPassword){
+if(password !== "08092005"){
 
-alert("❌ كلمة السر خاطئة");
+alert("❌ غير مسموح");
 
 window.location.href="index.html";
 
-}
-
-if(Notification.permission !== "granted"){
-    Notification.requestPermission();
 }
 
 
 let products =
 JSON.parse(localStorage.getItem("products"))
 || [];
-
 
 let editId = null;
 
