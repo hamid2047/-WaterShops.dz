@@ -190,15 +190,6 @@ button{
 
 }
 
-.product button{
-    width:auto;
-    margin:5px;
-}
-
-.product button{
-    padding:8px 12px;
-    font-size:12px;
-}
 
 
 button:hover{
