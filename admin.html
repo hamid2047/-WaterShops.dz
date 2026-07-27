@@ -2,640 +2,79 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Water Shop💧 - لوحة التحكم</title>
+<title>لوحة التحكم | Water Shop 💧</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-
 <header>
 
-<div class="logo">
-🛍️ Water shop💧
-</div>
+<h1>🛍️ لوحة التحكم</h1>
 
-
-<a href="index.html" style="color:white;text-decoration:none;">
-العودة للمتجر
-</a>
-
+<a href="index.html">⬅ العودة للمتجر</a>
 
 </header>
 
+<section class="admin">
 
+<h2>إضافة منتج جديد</h2>
 
-
-
-<section>
-
-
-<h2>
-إضافة منتج جديد
-</h2>
-
-
-
-<div class="admin-box">
-
-
-<input 
+<input
+type="text"
 id="name"
 placeholder="اسم المنتج">
 
-
-<input 
+<input
+type="text"
 id="category"
 placeholder="القسم">
 
-
-<input 
-id="price"
+<input
 type="number"
+id="price"
 placeholder="السعر">
 
-
-<input 
+<input
 type="file"
 id="image"
 accept="image/*">
 
-<input 
+<input
+type="text"
 id="description"
 placeholder="وصف المنتج">
 
-
-<input 
-id="rating"
+<input
 type="number"
+id="rating"
 min="1"
 max="5"
-placeholder="التقييم من 1 إلى 5">
-
+placeholder="التقييم">
 
 <button onclick="saveProduct()">
-حفظ المنتج
+
+💾 حفظ المنتج
+
 </button>
-
-
-
-</div>
-
-
-
-<h2>
-المنتجات الحالية
-</h2>
-
-
-
-<div id="admin-products">
-
-</div>
-
-
-
-<h2>
-📦 الطلبات الجديدة
-</h2>
-
-<div id="notification"></div>
-
-<div id="admin-orders">
-
-</div>
-
-
 
 </section>
 
+<hr>
 
+<section>
 
+<h2>📦 المنتجات الموجودة</h2>
 
+<div id="products-list"></div>
 
+</section>
 
-<script>
-
-if(Notification.permission !== "granted"){
-    Notification.requestPermission();
-}
-
-
-// 🔐 حماية الإدارة
-let password = prompt("أدخل كلمة سر الإدارة");
-
-if(password !== "08092005"){
-
-alert("❌ غير مسموح");
-
-window.location.href="index.html";
-
-}
-
-
-let products =
-JSON.parse(localStorage.getItem("products")) || [];
-
-let editId = null;
-
-
-
-
-// إضافة منتج
-
-function saveProduct(){
-
-let name = document.getElementById("name").value;
-let category = document.getElementById("category").value;
-let price = document.getElementById("price").value;
-let description = document.getElementById("description").value;
-let rating = document.getElementById("rating").value;
-
-let file = document.getElementById("image").files[0];
-
-
-if(!file){
-    alert("اختر صورة المنتج أولا");
-    return;
-}
-
-
-let reader = new FileReader();
-
-
-reader.onload = function(e){
-
-
-let product = {
-
-id: Date.now(),
-
-name:name,
-
-category:category,
-
-price:Number(price),
-
-image:e.target.result,
-
-description:description,
-
-rating:Number(rating) || 5
-
-};
-
-
-let products =
-JSON.parse(localStorage.getItem("products")) || [];
-
-
-products.push(product);
-
-
-localStorage.setItem(
-"products",
-JSON.stringify(products)
-);
-
-
-alert("✅ تم حفظ المنتج بنجاح");
-
-
-location.reload();
-
-
-};
-
-
-reader.readAsDataURL(file);
-
-
-}
-
-function saveEditedProduct(oldImage){
-
-let product={
-
-id: editId,
-
-name: document.getElementById("name").value,
-
-category: document.getElementById("category").value,
-
-price: Number(document.getElementById("price").value),
-
-image: oldImage,
-
-description: document.getElementById("description").value,
-
-rating: Number(document.getElementById("rating").value) || 5
-
-};
-
-
-let index = products.findIndex(p=>p.id==editId);
-
-products[index]=product;
-
-editId=null;
-
-
-localStorage.setItem(
-"products",
-JSON.stringify(products)
-);
-
-
-showProducts();
-
-clearForm();
-
-alert("تم تحديث المنتج");
-
-}
-
-
-
-
-// عرض المنتجات
-
-function showProducts(){
-
-
-let box =
-document.getElementById("admin-products");
-
-
-box.innerHTML="";
-
-
-
-products.forEach((p,index)=>{
-
-
-box.innerHTML += `
-
-
-<div class="product">
-
-
-<img src="${p.image}">
-
-
-<h3>${p.name}</h3>
-
-<p>${p.price} دج</p>
-
-<p>
-${"⭐".repeat(p.rating || 5)}
-</p>
-
-
-<button onclick="editProduct(${index})">
-
-تعديل ✏️
-
-</button>
-
-
-<button onclick="deleteProduct(${index})">
-
-حذف
-
-</button>
-
-
-</div>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-// تعديل المنتج
-
-function editProduct(index){
-
-let p = products[index];
-
-
-document.getElementById("name").value = p.name;
-
-document.getElementById("category").value = p.category;
-
-document.getElementById("price").value = p.price;
-
-document.getElementById("description").value = p.description;
-
-document.getElementById("rating").value = p.rating;
-
-document.getElementById("image").value="";
-
-editId = p.id;
-
-
-window.scrollTo(0,0);
-
-}
-
-
-
-
-// حذف منتج
-
-function deleteProduct(index){
-
-
-products.splice(index,1);
-
-
-localStorage.setItem(
-"products",
-JSON.stringify(products)
-);
-
-
-showProducts();
-
-
-}
-
-function showOrders(){
-
-
-let orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-
-let box =
-document.getElementById("admin-orders");
-
-
-if(!box) return;
-
-
-box.innerHTML="";
-
-
-orders.forEach((order,index)=>{
-
-
-box.innerHTML += `
-
-
-<div class="product">
-
-
-<h3>
-🆔 #${order.id}
-</h3>
-
-
-<p>
-📅 ${order.date}
-</p>
-
-
-<p>
-👤 ${order.name}
-</p>
-
-
-<p>
-📞 ${order.phone}
-</p>
-
-
-<p>
-📍 ${order.address}
-</p>
-
-
-<p>
-💰 ${order.total} دج
-</p>
-
-
-<p>
-الحالة:
-<select onchange="changeStatus(${index},this.value)">
-<option ${order.status=="جديد"?"selected":""}>
-جديد
-</option>
-
-<option ${order.status=="جاري التحضير"?"selected":""}>
-جاري التحضير
-</option>
-
-<option ${order.status=="تم الشحن"?"selected":""}>
-تم الشحن
-</option>
-
-<option ${order.status=="مكتمل"?"selected":""}>
-مكتمل
-</option>
-
-</select>
-</p>
-
-
-<button onclick="deleteOrder(${index})">
-
-🗑️ حذف الطلب
-
-</button>
-
-
-</div>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-function deleteOrder(index){
-
-
-let orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-
-orders.splice(index,1);
-
-
-localStorage.setItem(
-"orders",
-JSON.stringify(orders)
-);
-
-
-showOrders();
-
-
-}
-
-// 🔔 إشعار طلب جديد
-
-let oldOrders =
-JSON.parse(localStorage.getItem("oldOrders"));
-
-if(!oldOrders){
-
-let currentOrders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-localStorage.setItem(
-"oldOrders",
-JSON.stringify(currentOrders)
-);
-
-oldOrders = currentOrders;
-
-}
-
-
-function checkNewOrders(){
-
-let orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-
-let notification =
-document.getElementById("notification");
-
-
-if(orders.length > oldOrders.length){
-
-let sound = new Audio(
-"https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
-);
-
-sound.play();
-
-
-let lastOrder =
-orders[orders.length - 1];
-
-
-// إشعار المتصفح
-
-if(Notification.permission === "granted"){
-
-new Notification("🔔 Water Shop",{
-
-body:
-"طلب جديد من: "
-+ lastOrder.name
-+
-"\nالمجموع: "
-+ lastOrder.total
-+
-" دج"
-
-});
-
-}
-
-else if(Notification.permission !== "denied"){
-
-Notification.requestPermission();
-
-}
-
-
-notification.innerHTML = `
-
-<div class="alert-order">
-
-<button onclick="document.getElementById('notification').innerHTML=''">
-❌ إغلاق
-</button>
-
-<br><br>
-
-🔔 طلب جديد وصل!<br>
-
-👤 ${lastOrder.name}<br>
-
-💰 ${lastOrder.total} دج
-
-</div>
-
-`;
-
-
-localStorage.setItem(
-"oldOrders",
-JSON.stringify(orders)
-);
-
-
-}
-
-}
-
-
-// تغيير حالة الطلب
-function changeStatus(index,status){
-
-let orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-orders[index].status = status;
-
-localStorage.setItem(
-"orders",
-JSON.stringify(orders)
-);
-
-showOrders();
-
-}
-
-function clearForm(){
-
-document.getElementById("name").value="";
-document.getElementById("category").value="";
-document.getElementById("price").value="";
-document.getElementById("image").value="";
-document.getElementById("description").value="";
-document.getElementById("rating").value="";
-
-}
-
-setInterval(checkNewOrders,3000);
-
-
-products = JSON.parse(localStorage.getItem("products")) || [];
-
-showProducts();
-
-showOrders();
-
-</script>
-
+<script type="module" src="admin.js"></script>
 
 </body>
 
