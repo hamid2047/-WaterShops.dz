@@ -30,7 +30,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <a href="track.html">📦 تتبع الطلب</a>
 
-<a href="admin.html">⚙️ لوحة الإدارة</a>
+<a href="#" onclick="openAdmin()">
+🔐 الإدارة
+</a>
 
 <a href="https://wa.me/213778196483" target="_blank">
 💬 واتساب
@@ -348,6 +350,27 @@ document.getElementById("sidebar").style.width="0";
 
 </script>
 
+<script>
+
+function openAdmin(){
+
+let pass = prompt("أدخل كلمة سر الإدارة");
+
+if(pass === "08092005"){
+
+window.location.href="admin.html";
+
+}
+
+else{
+
+alert("❌ كلمة السر خاطئة");
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
