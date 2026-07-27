@@ -47,6 +47,16 @@ rating:5,
 description:"قميص بجودة عالية"
 }
 
+
+id:4,
+name:"FC26",
+category:"الالعاب",
+price:2500,
+image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d",
+rating:4.5,
+description:GO GO GO
+},
+
 ];
 
 if(!localStorage.getItem("products")){
