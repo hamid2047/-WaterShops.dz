@@ -124,6 +124,20 @@ placeholder="التقييم من 1 إلى 5">
 
 <script>
 
+<script>
+
+let adminPassword = "08092005";
+
+let enteredPassword = prompt("🔐 أدخل كلمة سر الإدارة");
+
+if(enteredPassword !== adminPassword){
+
+alert("❌ كلمة السر خاطئة");
+
+window.location.href="index.html";
+
+}
+
 if(Notification.permission !== "granted"){
     Notification.requestPermission();
 }
