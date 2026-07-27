@@ -160,16 +160,9 @@ alert("اختر صورة المنتج أولا");
 return;
 }
 
+alert("تم اختيار الصورة: " + file.name);
 
-let reader = new FileReader();
-
-reader.onload = function(e){
-    
-    alert("الصورة قرئت بنجاح");
-
-let product = {
-
-id: Date.now(),
+}
 
 name: document.getElementById("name").value,
 
