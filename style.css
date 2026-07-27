@@ -174,13 +174,13 @@ button{
 
     border:0;
 
-    padding:14px 30px;
+    padding:10px 18px;
 
-    border-radius:30px;
+    border-radius:20px;
 
     cursor:pointer;
 
-    font-size:16px;
+    font-size:13px;
 
     font-weight:bold;
 
@@ -188,6 +188,16 @@ button{
 
     box-shadow:0 5px 15px #0003;
 
+}
+
+.product button{
+    width:auto;
+    margin:5px;
+}
+
+.product button{
+    padding:8px 12px;
+    font-size:12px;
 }
 
 
